@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nfl-api-gateway
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nfl-api-gateway
+  template:
+    metadata:
+      labels:
+        app: nfl-api-gateway
+    spec:
+      containers:
+        - name: nfl-api-gateway
+          image: nfl-api-gateway:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080

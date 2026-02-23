@@ -1,0 +1,19 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: nfl-api-gateway
+
+  cloud:
+    gateway:
+      routes:
+        - id: nfl-team-route
+          uri: lb://nfl-team-service
+          predicates:
+            - Path=/teams/**
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://discovery-server:8761/eureka

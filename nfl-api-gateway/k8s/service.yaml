@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nfl-api-gateway
+spec:
+  selector:
+    app: nfl-api-gateway
+  ports:
+    - port: 8080
+      targetPort: 8080
+  type: NodePort

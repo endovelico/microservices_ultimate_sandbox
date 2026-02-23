@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nfl-team-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nfl-team-service
+  template:
+    metadata:
+      labels:
+        app: nfl-team-service
+    spec:
+      containers:
+        - name: nfl-team-service
+          image: nfl-team-service:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
