@@ -8,11 +8,21 @@
         <outputRelativeToContentRoot value="true" />
         <module name="nfl-api-gateway" />
       </profile>
+      <profile name="Annotation profile for nfl-team-service" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.42/lombok-1.18.42.jar" />
+        </processorPath>
+        <module name="nfl-team-service" />
+      </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="nfl-api-gateway" options="-parameters" />
+      <module name="nfl-team-service" options="-parameters" />
     </option>
   </component>
 </project>

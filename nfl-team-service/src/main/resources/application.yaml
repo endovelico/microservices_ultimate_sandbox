@@ -5,6 +5,16 @@ spring:
   application:
     name: nfl-team-service
 
+  kafka:
+    bootstrap-servers: kafka:9092  # Use Kafka hostname in Docker/K8s
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    consumer:
+      group-id: nfl-team-group
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+
 eureka:
   client:
     service-url:

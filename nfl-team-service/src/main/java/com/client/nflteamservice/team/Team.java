@@ -1,3 +1,3 @@
-package com.client.nfl_team_service.team;
+package com.client.nflteamservice.team;
 
 public record Team(String code, String name, String division) {}
