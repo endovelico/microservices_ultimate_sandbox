@@ -39,7 +39,7 @@ services:
   nfl-team-service:
     build: ./nfl-team-service
     ports:
-      - "8080:8080"
+      - "8082:8082"
     depends_on:
       - discovery-server
       - kafka

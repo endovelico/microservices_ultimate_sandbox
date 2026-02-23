@@ -1,4 +1,4 @@
-package com.client.nfl_team_service;
+package com.client.nflteamservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

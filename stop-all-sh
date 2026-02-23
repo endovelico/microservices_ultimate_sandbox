@@ -1,0 +1,28 @@
+#!/bin/bash
+# File: stop-all.sh
+# Place this in the root of your project
+
+set -e  # Exit on any error
+
+echo "==============================="
+echo "🛑 Stopping all Docker containers..."
+echo "==============================="
+
+# Stop all running Docker containers
+docker stop $(docker ps -q) 2>/dev/null || echo "No running Docker containers."
+
+# Optionally remove all containers
+docker rm $(docker ps -aq) 2>/dev/null || echo "No Docker containers to remove."
+
+echo "==============================="
+echo "☸️  Stopping all Kubernetes pods..."
+echo "==============================="
+
+# Replace <namespace> with your K8s namespace, or omit -n <namespace> for default
+NAMESPACE="default"
+
+kubectl delete pods --all -n $NAMESPACE || echo "No pods to delete in namespace $NAMESPACE"
+
+echo "==============================="
+echo "✅ All Docker and Kubernetes containers/pods stopped!"
+echo "==============================="
