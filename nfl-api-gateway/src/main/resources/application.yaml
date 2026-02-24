@@ -17,3 +17,14 @@ eureka:
   client:
     service-url:
       defaultZone: http://discovery-server:8761/eureka
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, metrics, httptrace, env   # Expose requested Actuator endpoints
+  endpoint:
+    health:
+      show-details: when-authorized                 # Full health details only if authenticated
+  server:
+    port: 8080                                      # Serve Actuator on same gateway port

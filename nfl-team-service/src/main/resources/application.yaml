@@ -19,3 +19,16 @@ eureka:
   client:
     service-url:
       defaultZone: http://discovery-server:8761/eureka
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, metrics, env, logfile  # Enable recommended Actuator endpoints
+  endpoint:
+    health:
+      show-details: when-authorized             # Full health details only if authenticated
+    logfile:
+      enabled: true                             # Optional: view logs via /actuator/logfile
+  server:
+    port: 8082                                   # Serve Actuator on the same container port
