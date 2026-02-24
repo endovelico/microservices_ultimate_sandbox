@@ -40,18 +40,50 @@ services:
       - elk-network
 
   # ---------------------------
+  # PostgreSQL
+  # ---------------------------
+  postgres:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_DB: nfl
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: example
+    ports:
+      - "5433:5432"  # Host 5433 -> container 5432
+    networks:
+      - elk-network
+
+  # ---------------------------
+  # MongoDB
+  # ---------------------------
+  mongo:
+    image: mongo:7
+    restart: always
+    ports:
+      - "27018:27017"  # Host 27018 -> container 27017
+    networks:
+      - elk-network
+
+  # ---------------------------
   # NFL Team Service
   # ---------------------------
   nfl-team-service:
     build: ./nfl-team-service
     ports:
-      - "8082:8082"
+      - "8082:8080"   # Container port 8080 -> Host port 8082
     depends_on:
       - discovery-server
       - kafka
+      - postgres
+      - mongo
     environment:
       SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery-server:8761/eureka
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/nfl
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: example
+      SPRING_DATA_MONGODB_URI: mongodb://mongo:27017/nfl
     networks:
       - elk-network
 
