@@ -62,6 +62,8 @@ services:
     restart: always
     ports:
       - "27018:27017"  # Host 27018 -> container 27017
+    volumes:
+      - mongo-data:/data/db
     networks:
       - elk-network
 
@@ -147,3 +149,9 @@ services:
 networks:
   elk-network:
     driver: bridge
+
+# =============================
+# Volumes
+# =============================
+volumes:
+  mongo-data:
