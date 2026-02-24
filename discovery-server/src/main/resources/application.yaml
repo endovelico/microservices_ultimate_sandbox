@@ -1,7 +1,24 @@
 server:
   port: 8761
 
+spring:
+  application:
+    name: eureka-server
+
 eureka:
   client:
     register-with-eureka: false  # The server does not register itself
     fetch-registry: false         # The server does not need other services
+  server:
+    enable-self-preservation: true  # Recommended for stability
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, metrics      # Expose only necessary endpoints
+  endpoint:
+    health:
+      show-details: when-authorized    # Show details only for authenticated requests
+  server:
+    port: 8761                         # Actuator served on the same port
