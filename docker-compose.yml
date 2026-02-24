@@ -9,6 +9,8 @@ services:
     image: wurstmeister/zookeeper
     ports:
       - "2181:2181"
+    networks:
+      - elk-network
 
   # ---------------------------
   # Kafka
@@ -22,6 +24,8 @@ services:
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
     depends_on:
       - zookeeper
+    networks:
+      - elk-network
 
   # ---------------------------
   # Discovery Server (Eureka)
@@ -32,6 +36,8 @@ services:
       - "8761:8761"
     depends_on:
       - kafka
+    networks:
+      - elk-network
 
   # ---------------------------
   # NFL Team Service
@@ -46,6 +52,8 @@ services:
     environment:
       SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery-server:8761/eureka
+    networks:
+      - elk-network
 
   # ---------------------------
   # API Gateway
@@ -58,3 +66,52 @@ services:
       - discovery-server
     environment:
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery-server:8761/eureka
+    networks:
+      - elk-network
+
+  # =============================
+  # ELASTICSEARCH
+  # =============================
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.12.0
+    container_name: elasticsearch
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+    ports:
+      - "9200:9200"
+    networks:
+      - elk-network
+
+  # =============================
+  # LOGSTASH
+  # =============================
+  logstash:
+    image: docker.elastic.co/logstash/logstash:8.12.0
+    container_name: logstash
+    volumes:
+      - ./elk/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+    ports:
+      - "5000:5000"
+    depends_on:
+      - elasticsearch
+    networks:
+      - elk-network
+
+  # =============================
+  # KIBANA
+  # =============================
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.12.0
+    container_name: kibana
+    ports:
+      - "5601:5601"
+    depends_on:
+      - elasticsearch
+    networks:
+      - elk-network
+
+networks:
+  elk-network:
+    driver: bridge
