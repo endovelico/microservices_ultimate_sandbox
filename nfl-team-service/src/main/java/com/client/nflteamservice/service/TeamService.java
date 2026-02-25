@@ -44,10 +44,6 @@ public class TeamService {
         return teamMapper.toDtoList(allTeamEntities);
     }
 
-    public Team getTeamByName(String name) {
-        return repository.findByName(name).orElse(null);
-    }
-
     public TeamDTO convertToDto(Team team) {
         return teamMapper.toDto(team);
     }
