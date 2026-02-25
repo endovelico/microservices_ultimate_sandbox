@@ -24,15 +24,11 @@ public class TeamController {
     TeamService teamService;
 
     @GetMapping
-    public Flux<Team> getTeams() {
+    public Flux<TeamDTO> getTeams() {
 
         List<TeamDTO> allTeams = teamService.getAllTeams();
 
-        return Flux.just(
-                new Team("KC", "Kansas City Chiefs", "AFC West"),
-                new Team("SF", "San Francisco 49ers", "NFC West"),
-                new Team("DAL", "Dallas Cowboys", "NFC East")
-        );
+        return Flux.fromIterable(allTeams);
     }
 
     @PostMapping("/new")
