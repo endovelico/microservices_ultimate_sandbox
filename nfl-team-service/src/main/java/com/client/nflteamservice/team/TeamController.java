@@ -1,6 +1,8 @@
 package com.client.nflteamservice.team;
 
+import com.client.nflteamservice.dto.TeamDTO;
 import com.client.nflteamservice.kafka.TeamEventProducer;
+import com.client.nflteamservice.service.TeamService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.http.HttpStatus;
@@ -9,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/teams")
 public class TeamController {
@@ -16,8 +20,14 @@ public class TeamController {
     @Autowired
     TeamEventProducer teamEventProducer;
 
+    @Autowired
+    TeamService teamService;
+
     @GetMapping
     public Flux<Team> getTeams() {
+
+        List<TeamDTO> allTeams = teamService.getAllTeams();
+
         return Flux.just(
                 new Team("KC", "Kansas City Chiefs", "AFC West"),
                 new Team("SF", "San Francisco 49ers", "NFC West"),

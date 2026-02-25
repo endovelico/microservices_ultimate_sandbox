@@ -6,10 +6,9 @@ import java.util.ArrayList;
 
 public class GetAllTeamsEvent {
 
-    private final ArrayList<TeamDTO> teamsList;
+    private final ArrayList<TeamDTO> teamsList = null;
 
-    public GetAllTeamsEvent(ArrayList<TeamDTO> teamsList) {
-        this.teamsList=teamsList;
+    public GetAllTeamsEvent() {
     }
 
     public ArrayList<TeamDTO> getTeamsList() {

@@ -1,6 +1,7 @@
 package com.client.nflteamservice.service;
 
 import com.client.nflteamservice.dto.TeamDTO;
+import com.client.nflteamservice.events.GetAllTeamsEvent;
 import com.client.nflteamservice.events.TeamCreatedEvent;
 import com.client.nflteamservice.mapper.TeamMapper;
 import com.client.nflteamservice.model.Team;
@@ -23,29 +24,22 @@ public class TeamService {
         this.teamMapper = teamMapper;
     }
 
-    private Team saveTeam(Team team) {
-        return repository.save(team);
-    }
+    public List<TeamDTO> getAllTeams() {
+        eventPublisher.publishEvent(new GetAllTeamsEvent());
 
-    public List<Team> getAllTeams() {
-        return repository.findAll();
+        List<Team> allTeamEntities = repository.findAll();
+        return teamMapper.toDtoList(allTeamEntities);
     }
 
     public Team getTeamByName(String name) {
         return repository.findByName(name).orElse(null);
     }
 
-    public void deleteTeam(String id) {
-        repository.deleteById(id);
-    }
-
-    public Team createTeam(Team team) {
-        Team savedTeam = saveTeam(team);
-        //eventPublisher.publishEvent(new TeamCreatedEvent(savedTeam));
-        return savedTeam;
-    }
-
     public TeamDTO convertToDto(Team team) {
         return teamMapper.toDto(team);
+    }
+
+    public Team convertToEntity(TeamDTO teamDTO) {
+        return teamMapper.toEntity(teamDTO);
     }
 }
