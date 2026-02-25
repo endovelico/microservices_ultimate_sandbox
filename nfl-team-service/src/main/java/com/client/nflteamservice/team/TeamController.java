@@ -33,7 +33,7 @@ public class TeamController {
 
         List<TeamDTO> allTeams = teamService.getAllTeams();
 
-        logger.debug("Retrieved teams: "+allTeams.toString());
+        logger.debug("Retrieved teams: " + allTeams.toString());
 
         return Flux.fromIterable(allTeams);
     }
