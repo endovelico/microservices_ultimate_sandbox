@@ -10,12 +10,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/teams")
 public class TeamController {
+
+    private static final Logger logger = LoggerFactory.getLogger(TeamController.class);
 
     @Autowired
     TeamEventProducer teamEventProducer;
@@ -25,25 +29,12 @@ public class TeamController {
 
     @GetMapping
     public Flux<TeamDTO> getTeams() {
+        logger.info("Retrieving all Teams...");
 
         List<TeamDTO> allTeams = teamService.getAllTeams();
 
+        logger.debug("Retrieved teams: "+allTeams.toString());
+
         return Flux.fromIterable(allTeams);
-    }
-
-    @PostMapping("/new")
-    public ResponseEntity<String> createTeam(@RequestBody Team team) throws JsonProcessingException {
-        // Save team to database (if you have one)
-        //teamService.save(team);
-
-        try {
-        // Publish Kafka event
-        String teamJson = new ObjectMapper().writeValueAsString(team);
-        teamEventProducer.publishTeamCreated(teamJson);
-        } catch(Exception e) {
-            return ResponseEntity.ok(e.getMessage());
-        }
-
-        return ResponseEntity.ok("Team created and event published v2");
     }
 }
