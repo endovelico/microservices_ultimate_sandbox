@@ -3,7 +3,7 @@ package com.client.nflteamservice.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "teams")
+@Document(collection = "Team")
 public class Team {
 
     @Id
