@@ -1,7 +1,9 @@
 package com.client.nflteamservice.dto;
 
+import org.bson.types.ObjectId;
+
 public record TeamDTO(
-        Long id,
+        ObjectId id,
         String name,
         String city,
         String stadium

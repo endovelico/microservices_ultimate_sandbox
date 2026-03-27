@@ -4,6 +4,7 @@ import com.client.nflteamservice.dto.TeamDTO;
 import com.client.nflteamservice.model.Team;
 import org.mapstruct.Mapper;
 import java.util.List;
+import org.bson.types.ObjectId;
 
 @Mapper(componentModel = "spring")
 public interface TeamMapper {
@@ -17,4 +18,5 @@ public interface TeamMapper {
 
     List<Team> toEntityList(List<TeamDTO> dtos);
 
+    ObjectId map(Long value);
 }

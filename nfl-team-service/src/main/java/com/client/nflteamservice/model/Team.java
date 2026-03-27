@@ -2,12 +2,13 @@ package com.client.nflteamservice.model;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.bson.types.ObjectId;
 
 @Document(collection = "Team")
 public class Team {
 
     @Id
-    private Long id;
+    private ObjectId id;
     private String name;
     private String city;
     private String stadium;
@@ -22,11 +23,11 @@ public class Team {
     }
 
     // Getters and Setters
-    public Long getId() {
+    public ObjectId getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(ObjectId id) {
         this.id = id;
     }
 
