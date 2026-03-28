@@ -1,4 +1,4 @@
-package com.client.nflteamservice.service;
+package com.client.nflteamservice;
 
 import com.client.nflteamservice.dto.TeamDTO;
 import com.client.nflteamservice.events.GetAllTeamsEvent;

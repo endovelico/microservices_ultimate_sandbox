@@ -2,12 +2,8 @@ package com.client.nflteamservice.team;
 
 import com.client.nflteamservice.dto.TeamDTO;
 import com.client.nflteamservice.kafka.TeamEventProducer;
-import com.client.nflteamservice.service.TeamService;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.http.HttpStatus;
+import com.client.nflteamservice.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import org.slf4j.Logger;

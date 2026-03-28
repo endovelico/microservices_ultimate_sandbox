@@ -1,14 +1,11 @@
-package com.client.nflteamservice.service;
+package com.client.nflteamservice;
 
 import com.client.nflteamservice.dto.TeamDTO;
 import com.client.nflteamservice.events.GetAllTeamsEvent;
-import com.client.nflteamservice.events.TeamCreatedEvent;
 import com.client.nflteamservice.kafka.EventProducer;
-import com.client.nflteamservice.kafka.TeamEventProducer;
 import com.client.nflteamservice.mapper.TeamMapper;
 import com.client.nflteamservice.model.Team;
 import com.client.nflteamservice.repository.TeamRepository;
-import com.client.nflteamservice.team.TeamController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationEventPublisher;

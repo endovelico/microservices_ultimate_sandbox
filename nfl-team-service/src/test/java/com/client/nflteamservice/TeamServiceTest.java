@@ -1,16 +1,13 @@
-package com.client.nflteamservice.service;
+package com.client.nflteamservice;
 
-import static javax.management.Query.times;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.client.nflteamservice.events.GetAllTeamsEvent;
 import com.client.nflteamservice.kafka.EventProducer;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.mockito.Mockito.*;
 import com.client.nflteamservice.repository.TeamRepository;
 import com.client.nflteamservice.mapper.TeamMapper;
-import com.client.nflteamservice.kafka.TeamEventProducer;
 import org.springframework.context.ApplicationEventPublisher;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -22,7 +19,6 @@ import org.bson.types.ObjectId;
 import static org.mockito.Mockito.times;
 
 import org.springframework.kafka.core.KafkaOperations;
-import org.springframework.kafka.core.KafkaTemplate;
 
 
 import java.util.Arrays;

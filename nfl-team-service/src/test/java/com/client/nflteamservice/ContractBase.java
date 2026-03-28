@@ -1,10 +1,10 @@
-package com.client.nflteamservice.service;
+package com.client.nflteamservice;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-public abstract class TeamServiceContractTest {
+public abstract class ContractBase {
 
     @Autowired
     private TeamService teamService;
