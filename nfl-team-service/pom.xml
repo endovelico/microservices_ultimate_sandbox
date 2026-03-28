@@ -92,6 +92,47 @@
 			<artifactId>spring-kafka</artifactId>
 		</dependency>
 
+		<!-- Contract -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-contract-verifier</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+<!--		&lt;!&ndash; Core &ndash;&gt;-->
+<!--		<dependency>-->
+<!--			<groupId>org.testcontainers</groupId>-->
+<!--			<artifactId>testcontainers</artifactId>-->
+<!--			<scope>test</scope>-->
+<!--		</dependency>-->
+
+<!--		&lt;!&ndash; JUnit 5 integration &ndash;&gt;-->
+<!--		<dependency>-->
+<!--			<groupId>org.testcontainers</groupId>-->
+<!--			<artifactId>junit-jupiter</artifactId>-->
+<!--			<scope>test</scope>-->
+<!--		</dependency>-->
+
+<!--		<dependency>-->
+<!--			<groupId>org.testcontainers</groupId>-->
+<!--			<artifactId>mongodb</artifactId>-->
+<!--			<version>1.19.0</version>-->
+<!--			<scope>test</scope>-->
+<!--		</dependency>-->
+
+<!--		<dependency>-->
+<!--			<groupId>org.testcontainers</groupId>-->
+<!--			<artifactId>kafka</artifactId>-->
+<!--			<version>1.19.0</version>-->
+<!--			<scope>test</scope>-->
+<!--		</dependency>-->
+
+		<dependency>
+			<groupId>org.springframework.kafka</groupId>
+			<artifactId>spring-kafka-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
 		<!-- Spring Boot test starter -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -123,6 +164,14 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
+
+<!--			<dependency>-->
+<!--				<groupId>org.testcontainers</groupId>-->
+<!--				<artifactId>testcontainers-bom</artifactId>-->
+<!--				<version>1.19.7</version>-->
+<!--				<type>pom</type>-->
+<!--				<scope>import</scope>-->
+<!--			</dependency>-->
 		</dependencies>
 	</dependencyManagement>
 
@@ -150,6 +199,16 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-contract-maven-plugin</artifactId>
+				<version>4.1.0</version>
+				<extensions>true</extensions>
+				<configuration>
+					<baseClassForTests>com.client.nflteamservice.ContractBase</baseClassForTests>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>

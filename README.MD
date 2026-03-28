@@ -1,15 +1,8 @@
 # Next Stuff
 
-## Stabilize
-- Stabilize The Testing Class
-
 ## Testing!
-- Make sure tests are done for microservices
-- Run some tests
 - Practice TDD
 - E2E TestContainers
-- ContractTesting
-- Make one Groovy Test to see if I like it
 
 ## Reactivity
 - Study if my teams endpoint can be reactive
@@ -29,6 +22,9 @@
 - Integrate Logging with ELK
 - Redis
 - MongoDB
+
+## Destabilizar
+- Try switching the proxy type to JDK (from CGLI)
 
 # Document!
 - Document the flow when adding a new microservice, including everything needed

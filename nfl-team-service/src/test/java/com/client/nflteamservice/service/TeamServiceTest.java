@@ -3,6 +3,7 @@ package com.client.nflteamservice.service;
 import static javax.management.Query.times;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import com.client.nflteamservice.events.GetAllTeamsEvent;
 import com.client.nflteamservice.kafka.EventProducer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -27,6 +28,7 @@ import org.springframework.kafka.core.KafkaTemplate;
 import java.util.Arrays;
 import java.util.List;
 
+// This is my Unitary Test So Far
 @ExtendWith(MockitoExtension.class)
 public class TeamServiceTest {
 
@@ -49,6 +51,7 @@ public class TeamServiceTest {
     private KafkaOperations<String, String> kafkaOperations;
 
 
+    // One Test to test all the main operation of the endpoint including side effects
     @Test
     void testGetAllTeams() {
         // Arrange: mock repository
@@ -72,10 +75,11 @@ public class TeamServiceTest {
         assertEquals("Team B", result.get(1).name());
 
         // Verify events published
-        verify(eventPublisher, times(1)).publishEvent(any());
+        verify(eventPublisher, times(1)).publishEvent(any(GetAllTeamsEvent.class));
         verify(teamEventProducer, times(1)).publishTeamsRetrieval(teams.toString());
     }
 
+    // One test to convert DTOs to Entities
     @Test
     void testConvertToDtoAndEntity() {
         Team team = new Team("Team A", "Stadium A", "City A");
