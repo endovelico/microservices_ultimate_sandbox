@@ -1,5 +1,7 @@
 # Next Stuff
 
+- make each service have its own mongodb
+
 ## Testing!
 - Practice TDD
 - E2E TestContainers
