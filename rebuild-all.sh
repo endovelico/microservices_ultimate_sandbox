@@ -9,7 +9,7 @@ echo "🛠  Rebuilding all Spring Boot services..."
 echo "==============================="
 
 # List of microservices
-SERVICES=("discovery-server" "nfl-api-gateway" "nfl-team-service")
+SERVICES=("discovery-server" "nfl-api-gateway" "nfl-team-service" "nfl-player-service")
 
 for service in "${SERVICES[@]}"; do
     echo "Building $service..."
