@@ -2,6 +2,8 @@ package com.client.nflteamservice.service;
 
 import static javax.management.Query.times;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import com.client.nflteamservice.kafka.EventProducer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.mockito.Mockito.*;
@@ -17,6 +19,8 @@ import com.client.nflteamservice.model.Team;
 import com.client.nflteamservice.dto.TeamDTO;
 import org.bson.types.ObjectId;
 import static org.mockito.Mockito.times;
+
+import org.springframework.kafka.core.KafkaOperations;
 import org.springframework.kafka.core.KafkaTemplate;
 
 
@@ -35,17 +39,14 @@ public class TeamServiceTest {
     @Mock
     private TeamMapper teamMapper;
 
-    private TeamEventProducer teamEventProducer;
+    @Mock
+    private EventProducer teamEventProducer;
 
     @InjectMocks
     private TeamService teamService;
 
-    @BeforeEach
-    void setUp() { // 1TBS or Strouspot
-
-        // 👇 HERE is where you put it
-        teamEventProducer = new TeamEventProducer(mock(KafkaTemplate.class));
-    }
+    @Mock
+    private KafkaOperations<String, String> kafkaOperations;
 
 
     @Test

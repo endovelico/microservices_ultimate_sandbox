@@ -3,6 +3,7 @@ package com.client.nflteamservice.service;
 import com.client.nflteamservice.dto.TeamDTO;
 import com.client.nflteamservice.events.GetAllTeamsEvent;
 import com.client.nflteamservice.events.TeamCreatedEvent;
+import com.client.nflteamservice.kafka.EventProducer;
 import com.client.nflteamservice.kafka.TeamEventProducer;
 import com.client.nflteamservice.mapper.TeamMapper;
 import com.client.nflteamservice.model.Team;
@@ -23,9 +24,9 @@ public class TeamService {
     private TeamRepository repository;
     private ApplicationEventPublisher eventPublisher;
     private final TeamMapper teamMapper;
-    private TeamEventProducer teamEventProducer;
+    private EventProducer teamEventProducer;
 
-    public TeamService(TeamRepository repository, ApplicationEventPublisher eventPublisher, TeamMapper teamMapper, TeamEventProducer teamEventProducer) {
+    public TeamService(TeamRepository repository, ApplicationEventPublisher eventPublisher, TeamMapper teamMapper, EventProducer teamEventProducer) {
         this.repository = repository;
         this.eventPublisher=eventPublisher;
         this.teamMapper = teamMapper;

@@ -4,7 +4,7 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 @Service
-public class TeamEventProducer {
+public class TeamEventProducer implements EventProducer {
 
     private KafkaTemplate<String, String> kafkaTemplate;
 
