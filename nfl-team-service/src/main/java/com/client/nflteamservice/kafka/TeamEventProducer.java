@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class TeamEventProducer {
 
-    private final KafkaTemplate<String, String> kafkaTemplate;
+    private KafkaTemplate<String, String> kafkaTemplate;
 
     public TeamEventProducer(KafkaTemplate<String, String> kafkaTemplate) {
         this.kafkaTemplate = kafkaTemplate;
@@ -15,4 +15,6 @@ public class TeamEventProducer {
     public void publishTeamCreated(String teamJson) {
         kafkaTemplate.send("team-events", teamJson);
     }
+
+    public void publishTeamsRetrieval(String teamJson) { kafkaTemplate.send("team-events", teamJson);}
 }
