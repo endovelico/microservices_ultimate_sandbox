@@ -1,9 +1,9 @@
 server:
-  port: 8082
+  port: 8083
 
 spring:
   application:
-    name: nfl-team-service
+    name: nfl-player-service
 
   kafka:
     bootstrap-servers: kafka:9092  # Use Kafka hostname in Docker/K8s
@@ -11,7 +11,7 @@ spring:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
     consumer:
-      group-id: nfl-team-group
+      group-id: nfl-player-group
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
 

@@ -1,10 +1,10 @@
 # Next Stuff
 
-- make each service have its own mongodb
+# Fix
+- Have both launch sucessfuly
 
-## Testing!
-- Practice TDD
-- E2E TestContainers
+# Test
+- Check Kafka messaging between both
 
 ## Reactivity
 - Study if my teams endpoint can be reactive
