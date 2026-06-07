@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
+import static net.logstash.logback.argument.StructuredArguments.kv;
 
 import java.util.List;
 
@@ -32,17 +33,17 @@ public class TeamService {
 
     public List<TeamDTO> getAllTeams() {
 
-        logger.info("Executing TeamService.getllTeams...");
-        logger.debug("Publishing event GetAllTeamsEvent.");
+        logger.info("Executing TeamService.getllTeams", kv("team-ids", "all"));
+        logger.debug("Publishing event GetAllTeamsEvent", kv("team-ids", "all"));
         eventPublisher.publishEvent(new GetAllTeamsEvent());
 
-        logger.debug("Finding all Teams in MongoDB Repository");
+        logger.debug("Finding all Teams in MongoDB Repository", kv("team-ids", "all"));
         List<Team> allTeamEntities = repository.findAll();
 
-        logger.debug("sending to Kafka the GetTeams Notification");
+        logger.debug("sending to Kafka the GetTeams Notification", kv("team-ids", "all"));
         teamEventProducer.publishTeamsRetrieval(allTeamEntities.toString());
 
-        logger.debug("Accessed Team Database, all teams retrieved are "+allTeamEntities.toString());
+        logger.debug("Accessed Team Database", kv("teams", allTeamEntities.toString()));
         return teamMapper.toDtoList(allTeamEntities);
     }
 

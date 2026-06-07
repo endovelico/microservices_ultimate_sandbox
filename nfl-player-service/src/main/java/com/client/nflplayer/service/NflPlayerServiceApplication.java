@@ -2,6 +2,7 @@ package com.client.nflplayer.service;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import static net.logstash.logback.argument.StructuredArguments.kv;
 
 @SpringBootApplication
 public class NflPlayerServiceApplication {

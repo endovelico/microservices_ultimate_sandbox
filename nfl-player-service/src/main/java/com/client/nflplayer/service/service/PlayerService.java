@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
+import static net.logstash.logback.argument.StructuredArguments.kv;
 
 import java.util.List;
 
@@ -32,17 +33,17 @@ public class PlayerService {
 
     public List<PlayerDTO> getAllPlayers() {
 
-        logger.info("Executing PlayerService.getllPlayer...");
-        logger.debug("Publishing event RetrievePlayerEvent.");
+        logger.info("Executing PlayerService.getllPlayer", kv("player-ids", "all"), kv("team-ids", "all"));
+        logger.debug("Publishing event RetrievePlayerEvent", kv("player-ids", "all"), kv("team-ids", "all"));
         eventPublisher.publishEvent(new RetrievePlayerEvent());
 
-        logger.debug("Finding all Teams in MongoDB Repository");
+        logger.debug("Finding all Teams in MongoDB Repository", kv("team-ids", "all"));
         List<Player> allPlayerEntities = repository.findAll();
 
         logger.debug("sending to Kafka the GetTeams Notification");
         playerEventProducer.publishPlayerRetrieval(allPlayerEntities.toString());
 
-        logger.debug("Accessed Team Database, all players retrieved are "+allPlayerEntities.toString());
+        logger.debug("Accessed Team Database", kv("team-ids", allPlayerEntities.toString()));
         return playerMapper.toDtoList(allPlayerEntities);
     }
 

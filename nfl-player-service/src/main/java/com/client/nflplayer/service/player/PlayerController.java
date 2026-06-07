@@ -2,6 +2,7 @@ package com.client.nflplayer.service.player;
 
 
 import com.client.nflplayer.service.dto.PlayerDTO;
+import com.client.nflplayer.service.external.ExternalPlayerClient;
 import com.client.nflplayer.service.kafka.PlayerEventProducer;
 import com.client.nflplayer.service.service.PlayerService;
 import reactor.core.publisher.Flux;
@@ -9,6 +10,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import reactor.core.publisher.Mono;
+import reactor.core.scheduler.Schedulers;
+
 import java.util.List;
 
 @RestController
@@ -23,14 +27,36 @@ public class PlayerController {
     @Autowired
     PlayerService playerService;
 
+    @Autowired
+    ExternalPlayerClient externalPlayerClient;
+
+
     @GetMapping
-    public Flux<PlayerDTO> getTeams() {
+    public Mono<Flux<PlayerDTO>> getPlayers() {
+
         logger.info("Retrieving all Players...");
 
-        List<PlayerDTO> allPlayers = playerService.getAllPlayers();
+        Mono<List<PlayerDTO>> playersMono =
+                Mono.fromCallable(() -> playerService.getAllPlayers())
+                        .subscribeOn(Schedulers.boundedElastic());
 
-        logger.debug("Retrieved players: " + allPlayers.toString());
+        Mono<String> externalMono = externalPlayerClient.fetchExternalData();
 
-        return Flux.fromIterable(allPlayers);
+        return Mono.zip(playersMono, externalMono)
+                .map(tuple -> {
+
+                    List<PlayerDTO> players = tuple.getT1();
+                    String external = tuple.getT2();
+
+                    logger.info("External call result: {}", external);
+                    logger.debug("Retrieved players: {}", players);
+
+                    return Flux.fromIterable(players);
+                });
+    }
+
+    public Mono<List<PlayerDTO>> getAllPlayersReactive() {
+        return Mono.fromCallable(() -> playerService.getAllPlayers())
+                .subscribeOn(Schedulers.boundedElastic());
     }
 }
