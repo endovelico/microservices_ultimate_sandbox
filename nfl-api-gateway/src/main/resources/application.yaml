@@ -17,12 +17,14 @@ eureka:
   client:
     service-url:
       defaultZone: http://discovery-server:8761/eureka
+  instance:
+    prefer-ip-address: true
 
 management:
   endpoints:
     web:
       exposure:
-        include: health, metrics, httptrace, env   # Expose requested Actuator endpoints
+        include: health, metrics, httptrace, env, info   # Expose requested Actuator endpoints
   endpoint:
     health:
       show-details: when-authorized                 # Full health details only if authenticated

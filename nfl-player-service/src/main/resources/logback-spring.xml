@@ -1,21 +1,50 @@
 <configuration>
 
-    <!-- Console output -->
+    <!-- =========================
+         SERVICE CONTEXT
+    ========================== -->
+    <springProperty name="SERVICE_NAME" source="spring.application.name"/>
+
+    <!-- =========================
+         CONSOLE APPENDER (human readable dev logs)
+    ========================== -->
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n</pattern>
+            <pattern>
+                %d{yyyy-MM-dd HH:mm:ss} | %-5level | ${SERVICE_NAME} | %logger{36} | %msg%n
+            </pattern>
         </encoder>
     </appender>
 
-    <!-- Logstash TCP appender -->
+    <!-- =========================
+         STRUCTURED LOGSTASH APPENDER (JSON)
+    ========================== -->
     <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
-        <!-- Destination is the logstash container and port from your docker-compose -->
+
+        <!-- Logstash container from docker-compose -->
         <destination>logstash:5000</destination>
-        <encoder class="net.logstash.logback.encoder.LogstashEncoder"/>
+
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+
+            <!-- Global fields added to every log -->
+            <customFields>
+                {
+                "service":"${SERVICE_NAME}",
+                "env":"dev"
+                }
+            </customFields>
+
+            <!-- Include useful structured fields -->
+            <includeMdc>true</includeMdc>
+            <includeContext>true</includeContext>
+
+        </encoder>
     </appender>
 
-    <!-- Root logger -->
-    <root level="DEBUG">
+    <!-- =========================
+         ROOT LOGGER
+    ========================== -->
+    <root level="INFO">
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="LOGSTASH"/>
     </root>

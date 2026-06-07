@@ -99,34 +99,6 @@
             <scope>test</scope>
         </dependency>
 
-        <!--		&lt;!&ndash; Core &ndash;&gt;-->
-        <!--		<dependency>-->
-        <!--			<groupId>org.testcontainers</groupId>-->
-        <!--			<artifactId>testcontainers</artifactId>-->
-        <!--			<scope>test</scope>-->
-        <!--		</dependency>-->
-
-        <!--		&lt;!&ndash; JUnit 5 integration &ndash;&gt;-->
-        <!--		<dependency>-->
-        <!--			<groupId>org.testcontainers</groupId>-->
-        <!--			<artifactId>junit-jupiter</artifactId>-->
-        <!--			<scope>test</scope>-->
-        <!--		</dependency>-->
-
-        <!--		<dependency>-->
-        <!--			<groupId>org.testcontainers</groupId>-->
-        <!--			<artifactId>mongodb</artifactId>-->
-        <!--			<version>1.19.0</version>-->
-        <!--			<scope>test</scope>-->
-        <!--		</dependency>-->
-
-        <!--		<dependency>-->
-        <!--			<groupId>org.testcontainers</groupId>-->
-        <!--			<artifactId>kafka</artifactId>-->
-        <!--			<version>1.19.0</version>-->
-        <!--			<scope>test</scope>-->
-        <!--		</dependency>-->
-
         <dependency>
             <groupId>org.springframework.kafka</groupId>
             <artifactId>spring-kafka-test</artifactId>
@@ -152,6 +124,24 @@
             <artifactId>mockito-inline</artifactId>
             <version>5.2.0</version> <!-- Use your project’s Mockito version -->
             <scope>test</scope>
+        </dependency>
+
+        <!-- Structured Logging Stuff -->
+        <!-- JSON logging support -->
+        <dependency>
+            <groupId>net.logstash.logback</groupId>
+            <artifactId>logstash-logback-encoder</artifactId>
+            <version>7.4</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-tracing-bridge-brave</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.zipkin.reporter2</groupId>
+            <artifactId>zipkin-reporter-brave</artifactId>
         </dependency>
     </dependencies>
 

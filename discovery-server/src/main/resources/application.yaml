@@ -16,7 +16,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: health, metrics      # Expose only necessary endpoints
+        include: health, metrics, info      # Expose only necessary endpoints
   endpoint:
     health:
       show-details: when-authorized    # Show details only for authenticated requests
