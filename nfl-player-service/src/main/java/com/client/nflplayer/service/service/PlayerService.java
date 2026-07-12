@@ -33,19 +33,19 @@ public class PlayerService {
 
     public List<PlayerDTO> getAllPlayers() {
 
-        logger.info("Executing PlayerService.getllPlayer", kv("player-ids", "all"), kv("team-ids", "all"));
-        logger.debug("Publishing event RetrievePlayerEvent", kv("player-ids", "all"), kv("team-ids", "all"));
-        eventPublisher.publishEvent(new RetrievePlayerEvent());
+    logger.info("Executing PlayerService.getAllPlayers",
+            kv("player-ids", "all"),
+            kv("team-ids", "all"));
 
-        logger.debug("Finding all Teams in MongoDB Repository", kv("team-ids", "all"));
-        List<Player> allPlayerEntities = repository.findAll();
+    eventPublisher.publishEvent(new RetrievePlayerEvent());
 
-        logger.debug("sending to Kafka the GetTeams Notification");
-        playerEventProducer.publishPlayerRetrieval(allPlayerEntities.toString());
+    List<Player> players = repository.findAll();
 
-        logger.debug("Accessed Team Database", kv("team-ids", allPlayerEntities.toString()));
-        return playerMapper.toDtoList(allPlayerEntities);
-    }
+    playerEventProducer.publishPlayerRetrieval(
+            players.toString());
+
+    return playerMapper.toDtoList(players);
+}
 
     public PlayerDTO convertToDto(Player player) {
         return playerMapper.toDto(player);

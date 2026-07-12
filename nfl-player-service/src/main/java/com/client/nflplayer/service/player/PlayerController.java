@@ -32,26 +32,23 @@ public class PlayerController {
 
 
     @GetMapping
-    public Mono<Flux<PlayerDTO>> getPlayers() {
+    public Flux<PlayerDTO> getPlayers() {
 
         logger.info("Retrieving all Players...");
 
         Mono<List<PlayerDTO>> playersMono =
-                Mono.fromCallable(() -> playerService.getAllPlayers())
-                        .subscribeOn(Schedulers.boundedElastic());
+            Mono.fromCallable(playerService::getAllPlayers)
+                    .subscribeOn(Schedulers.boundedElastic());
 
         Mono<String> externalMono = externalPlayerClient.fetchExternalData();
 
         return Mono.zip(playersMono, externalMono)
-                .map(tuple -> {
+                .flatMapMany(tuple -> {
 
-                    List<PlayerDTO> players = tuple.getT1();
-                    String external = tuple.getT2();
+                    logger.info("External call result: {}", tuple.getT2());
+                    logger.debug("Retrieved {} players", tuple.getT1().size());
 
-                    logger.info("External call result: {}", external);
-                    logger.debug("Retrieved players: {}", players);
-
-                    return Flux.fromIterable(players);
+                    return Flux.fromIterable(tuple.getT1());
                 });
     }
 

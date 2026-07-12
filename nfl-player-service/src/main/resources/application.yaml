@@ -32,3 +32,25 @@ management:
       show-details: when-authorized             # Full health details only if authenticated
     logfile:
       enabled: true                             # Optional: view logs via /actuator/logfile
+
+resilience4j:
+
+  circuitbreaker:
+    instances:
+      externalPlayer:
+        slidingWindowSize: 10
+        minimumNumberOfCalls: 5
+        failureRateThreshold: 50
+        waitDurationInOpenState: 30s
+
+  retry:
+    instances:
+      externalPlayer:
+        maxAttempts: 3
+        waitDuration: 500ms
+
+  bulkhead:
+    instances:
+      externalPlayer:
+        maxConcurrentCalls: 20
+        maxWaitDuration: 0
