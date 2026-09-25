@@ -53,7 +53,7 @@ public class PlayerController {
     }
 
     public Mono<List<PlayerDTO>> getAllPlayersReactive() {
-        return Mono.fromCallable(() -> playerService.getAllPlayers())
+        return Mono.fromCallable(playerService::getAllPlayers)
                 .subscribeOn(Schedulers.boundedElastic());
     }
 }
